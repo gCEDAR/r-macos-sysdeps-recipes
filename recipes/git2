@@ -1,0 +1,6 @@
+Package: git2
+Version: 1.6.4
+Source.URL: https://github.com/libgit2/libgit2/archive/v${ver}.tar.gz
+Depends: ssh2
+Build-system: cmake
+Configure: -DBUILD_SHARED_LIBS=OFF
