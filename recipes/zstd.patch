@@ -35,7 +35,7 @@ diff -ruN zstd-1.5.1/configure zstd-1.5.1-fix/configure
 +
 +cat > Makefile <<EOF
 +all:
-+	make -C lib -j8 libzstd.a
++	make -C lib -j8 prefix=/${PREFIX} libzstd.a
 +
 +install:
 +	make -C lib -j8 prefix=/${PREFIX} DESTDIR=\$(DESTDIR)/ install-static install-includes install-pc
