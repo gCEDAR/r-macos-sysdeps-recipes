@@ -34,6 +34,13 @@ fi
 export MACOSX_DEPLOYMENT_TARGET=11.0
 export OS_VER=20
 
+# prerequisits
+
+if [ ! -d /Applications/Utilities/XQuartz.app ]; then
+    echo "ERROR: XQuartz server not found" >&2
+    exit 1
+fi
+
 # for cmake, meson and ninja
 
 if [ -e /Applications/CMake.app/Contents/bin ]; then
