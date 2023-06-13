@@ -25,7 +25,9 @@ if [ -e /Volumes/Temp/tmp ]; then
     export TMPDIR=/Volumes/Temp/tmp
 fi
 
-if [ -e /Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk ]; then
+if [ -e /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk ]; then
+    export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk
+elif [ -e /Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk ]; then
     export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk
 else
     echo "WARNING: MacOSX11.sdk not present, using default SDK which may be newer!"
