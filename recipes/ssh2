@@ -1,0 +1,4 @@
+Package: ssh2
+Version: 1.10.0
+Source.URL: https://www.libssh2.org/download/libssh2-${ver}.tar.gz
+Depends: openssl
