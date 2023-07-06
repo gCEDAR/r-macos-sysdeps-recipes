@@ -201,7 +201,7 @@ open OUT, ">build/Makefile" || die "ERROR: cannot create build/Makefile";
 my $TAR = $ENV{"TAR"};
 my $tarflags='';
 
-my $tarextract='fxz';
+my $tarextract='fx';
 if ($os eq "darwin") {
     $tarextract='fxj';
 }
@@ -219,10 +219,10 @@ sub dep_targets {
     my $sep = $_[1];
     $sep = ' ' if ($seq eq '');
     return join ' ', map {
-	my %d = %$_;
-	my $name = $d{name};
-	my %p = %{$pkgs{$name}};
-	($p{ver} eq '') ? $name : "$name-$p{ver}";
+        my %d = %$_;
+        my $name = $d{name};
+        my %p = %{$pkgs{$name}};
+        ($p{ver} eq '') ? $name : "$name-$p{ver}";
     } @{$_[0]};
 }
 
@@ -243,11 +243,11 @@ foreach my $name (sort keys %pkgs) {
     my $pv = "$pkg{pkg}-$pkg{ver}";
     my $bsys = ($d{'build-system'} ne '') ? $d{'build-system'} : '';
     if ($bsys ne '') {
-	$bsys = "$root/scripts/configure.$bsys";
-	if (! -e $bsys) {
-	    print STDERR "ERROR: I can't find driver for the build system $bsys (package $pkg{pkg})\n";
-	    exit 1;
-	}
+        $bsys = "$root/scripts/configure.$bsys";
+        if (! -e $bsys) {
+            print STDERR "ERROR: I can't find driver for the build system $bsys (package $pkg{pkg})\n";
+            exit 1;
+        }
     }
 
     my $dist = ($d{'distribution.files'} ne '') ? $d{'distribution.files'} : $tarspec;
@@ -265,15 +265,15 @@ foreach my $name (sort keys %pkgs) {
 
     if (!$binary) {
         if ($d{special} =~ /in-sources/) { ## requires in-sources install
-	    $cfg_chmod = "chmod $cfg_chmod ".shQuote($cfg_scr)." && " if ($cfg_chmod ne '');
-	    print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && rsync -a src/$pv$srcdir/ $pv-obj/ && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ./$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
+        $cfg_chmod = "chmod $cfg_chmod ".shQuote($cfg_scr)." && " if ($cfg_chmod ne '');
+        print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && rsync -a src/$pv$srcdir/ $pv-obj/ && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ./$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
         } else {
-	    $cfg_chmod = "chmod $cfg_chmod ".shQuote("../src/$pv$srcdir/$cfg_scr")." && " if ($cfg_chmod ne '');
-	    print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && mkdir $pv-obj && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ../src/$pv$srcdir/$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
+        $cfg_chmod = "chmod $cfg_chmod ".shQuote("../src/$pv$srcdir/$cfg_scr")." && " if ($cfg_chmod ne '');
+        print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && mkdir $pv-obj && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ../src/$pv$srcdir/$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
         }
         $do_patch = ($pkg{patch} ne '') ? "&& patch -p1 < ".shQuote($pkg{patch}) : '';
-	$do_patch = "$do_patch && cp ". shQuote($bsys) ." configure" if ($bsys ne '');
-	print OUT "src/$pv: src/$tar\n\tmkdir -p src/$pv && (cd src/$pv && \$(TAR) $tarextract ../$tar && mv */* . $do_patch)\n";
+        $do_patch = "$do_patch && cp ". shQuote($bsys) ." configure" if ($bsys ne '');
+        print OUT "src/$pv: src/$tar\n\tmkdir -p src/$pv && (cd src/$pv && \$(TAR) $tarextract ../$tar && mv */* . $do_patch)\n";
         print OUT "src/$tar:\n\t$curl -L -o \$\@ '$pkg{src}'\n";
         print OUT "$pv-$os_maj-$arch.tar.gz: $pv-dst\n\tif [ ! -e \$^/$prefix/pkg ]; then mkdir \$^/$prefix/pkg; fi\n\t(cd \$^ && find $prefix > $prefix/pkg/$pv-$os_maj-$arch.list )\n$chown\t\$(TAR) fcz '\$\@' $tarflags -C '\$^' $dist\n";
     } else {
