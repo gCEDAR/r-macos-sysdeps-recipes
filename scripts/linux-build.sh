@@ -37,6 +37,13 @@ if ! command -v cmake > /dev/null; then
     exit 1
 fi
 
+if [ -d $HOME/.local/bin ]; then
+    case :$PATH:
+        in *:$HOME/bin:*) ;;
+        *) export PATH=$PATH:$HOME/.local/bin ;;
+    esac
+fi
+
 if command -v meson > /dev/null && command -v ninja > /dev/null; then
     echo "ninja and meson are already on the PATH"
 else
