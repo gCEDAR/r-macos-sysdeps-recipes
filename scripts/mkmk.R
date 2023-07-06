@@ -135,6 +135,9 @@ TAR <- Sys.getenv("TAR")
 if (!nzchar(TAR)) TAR <- "tar"
 cat("TAR='", TAR, "'\n", sep='')
 cat("PREFIX='", prefix, "'\n\n", sep='')
+tar_cmd <- "fxj"
+if (!isTRUE(os == "darwin"))
+    tar_cmd <- "fxz"
 
 dep.targets <- function(dep, sep=' ')
    paste(sapply(dep, function(o) {
@@ -168,7 +171,7 @@ for (pkg in pkgs) {
         }
         do.patch <- if (length(pkg$patch)) paste("&& patch -p1 <", shQuote(pkg$patch)) else ""
         if (nzchar(bsys)) do.patch <- paste0(do.patch, " && cp ", shQuote(bsys), " configure")
-        cat("src/",pv,": src/",tar,"\n\tmkdir -p src/",pv," && (cd src/",pv," && $(TAR) fxz ../",tar," && mv */* . ",do.patch,")\n",sep='')
+        cat("src/",pv,": src/",tar,"\n\tmkdir -p src/",pv," && (cd src/",pv," && $(TAR) ",tar_cmd," ../",tar," && mv */* . ",do.patch,")\n",sep='')
         cat("src/",tar,":\n\tcurl -L -o $@ '",pkg$src,"'\n",sep='')
         chown <- paste0("\t", sudo, "chown -Rh 0:0 '$^'\n")
         ## don't use chown without sudo unless run as root
