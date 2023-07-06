@@ -135,4 +135,4 @@ if [ x"$osname" = xDarwin ]; then
 fi
 
 set -e
-unset PREFIX && make -C build prefix=/${PREFIX} "${args[@]}"
+unset PREFIX && make -C build "${args[@]}"
