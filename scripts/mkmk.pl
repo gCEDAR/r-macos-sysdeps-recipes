@@ -162,15 +162,15 @@ $os_maj = "$os.$os_maj";
 ## auto-detect the binaries to pull from mac.R-project.org
 if ($binary && $binary_url eq '') {
     if ($os eq "darwin") {
-	print STDERR "BINARY_URL must be set for anything other than macOS\n";
-	exit 1;
+        print STDERR "BINARY_URL must be set for anything other than macOS\n";
+        exit 1;
     }
     if ($arch eq "arm64") {
         $os_maj = "darwin.20";
         $binary_url = "https://mac.r-project.org/libs-arm64";
     } else {
         $os_maj = "darwin.17";
-	$binary_url = "https://mac.r-project.org/libs-4";
+        $binary_url = "https://mac.r-project.org/libs-4";
     }
 }
 
@@ -184,8 +184,8 @@ sub cfg {
     my @f;
     push @f, $cfgflags if ($d{'configure.script'} eq '' && $d{'build-system'} eq '');
     foreach (("configure", "configure.$os", "configure.$os_maj", "configure.$arch",
-	      "configure.$os.$arch", "configure.$os_maj.$arch")) {
-	push @f, $d{$_} if ($d{$_} ne '');
+        "configure.$os.$arch", "configure.$os_maj.$arch")) {
+            push @f, $d{$_} if ($d{$_} ne '');
     }
 
     ## this is not completely fool-proof, but we try to accept --prefix overrides and not step on them
@@ -200,6 +200,11 @@ open OUT, ">build/Makefile" || die "ERROR: cannot create build/Makefile";
 
 my $TAR = $ENV{"TAR"};
 my $tarflags='';
+
+my $tarextract='fxz';
+if ($os eq "darwin") {
+    $tarextract='fxj';
+}
 
 $TAR = 'tar' if ($TAR eq '');
 print OUT "TAR='$TAR'\nPREFIX='$prefix'\n\n";
@@ -268,7 +273,7 @@ foreach my $name (sort keys %pkgs) {
         }
         $do_patch = ($pkg{patch} ne '') ? "&& patch -p1 < ".shQuote($pkg{patch}) : '';
 	$do_patch = "$do_patch && cp ". shQuote($bsys) ." configure" if ($bsys ne '');
-	print OUT "src/$pv: src/$tar\n\tmkdir -p src/$pv && (cd src/$pv && \$(TAR) fxj ../$tar && mv */* . $do_patch)\n";
+	print OUT "src/$pv: src/$tar\n\tmkdir -p src/$pv && (cd src/$pv && \$(TAR) $tarextract ../$tar && mv */* . $do_patch)\n";
         print OUT "src/$tar:\n\t$curl -L -o \$\@ '$pkg{src}'\n";
         print OUT "$pv-$os_maj-$arch.tar.gz: $pv-dst\n\tif [ ! -e \$^/$prefix/pkg ]; then mkdir \$^/$prefix/pkg; fi\n\t(cd \$^ && find $prefix > $prefix/pkg/$pv-$os_maj-$arch.list )\n$chown\t\$(TAR) fcz '\$\@' $tarflags -C '\$^' $dist\n";
     } else {
