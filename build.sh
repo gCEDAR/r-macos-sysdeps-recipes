@@ -103,29 +103,29 @@ fi
 ## need to create Makefile?
 if [ ! -e build/Makefile ]; then
     if [ -n "$PERL" -o -z "$RSBIN" ]; then
-	: ${PERL=`which perl`}
-	if [ -z "$PERL" ]; then
-	    X=`perl -e 'print 1;'`
-	    if [ x$X = x1 ]; then
-		PERL=perl
-	    else
-		echo "ERROR: neither R nor Perl found. Please, install either and make sure it is on the PATH."
-		exit 1
-	    fi
-	fi
-	RUN="$PERL scripts/mkmk.pl"
-	echo "Using Perl generator ($PERL)"
+    : ${PERL=`which perl`}
+    if [ -z "$PERL" ]; then
+        X=`perl -e 'print 1;'`
+        if [ x$X = x1 ]; then
+          PERL=perl
+        else
+          echo "ERROR: neither R nor Perl found. Please, install either and make sure it is on the PATH."
+          exit 1
+        fi
+    fi
+    RUN="$PERL scripts/mkmk.pl"
+    echo "Using Perl generator ($PERL)"
     else
-	RUN="$RSBIN scripts/mkmk.R"
-	echo "Using R generator ($RSBIN)"
+    RUN="$RSBIN scripts/mkmk.R"
+    echo "Using R generator ($RSBIN)"
     fi
 
     if $RUN; then
-	echo 'build/Makefile created.'
-	echo ''
+      echo 'build/Makefile created.'
+      echo ''
     else
-	echo "ERROR: Makefile generation failed" >&2
-	exit 1
+      echo "ERROR: Makefile generation failed" >&2
+      exit 1
     fi
 fi
 
@@ -135,4 +135,4 @@ if [ x"$osname" = xDarwin ]; then
 fi
 
 set -e
-unset PREFIX && make -C build prefix=/${PREFIX} "${args[@]}"
+make -C build prefix=/${PREFIX} "${args[@]}"
