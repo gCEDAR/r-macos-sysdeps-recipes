@@ -4,6 +4,9 @@ Source.URL: https://www.openssl.org/source/openssl-${ver}.tar.gz
 Configure.script: Configure
 Configure: no-shared
 Configure.darwin: --prefix=/${prefix} --openssldir=/private/etc/ssl
+Configure.linux: --prefix=/${prefix}
 Configure.darwin.x86_64: darwin64-x86_64-cc enable-ec_nistp_64_gcc_128
 Configure.darwin.arm64: darwin64-arm64-cc no-asm
+Configure.linux.aarch64: linux-aarch64 no-asm
+Configure.linux.x86_64: linux-x86_64
 Install: make install_sw
