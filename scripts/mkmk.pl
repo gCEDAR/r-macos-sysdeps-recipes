@@ -2,6 +2,14 @@
 ## this script generates build/Makefile
 ## which is used to build libraries according to the recipes
 
+my $os = lc `uname`; chomp $os;
+my $arch = lc `uname -m`; chomp $arch;
+my $os_ver = `uname -r`; chomp $os_ver;
+$os_ver=$ENV{OS_VER} if ($ENV{OS_VER} ne '');
+my $os_maj = $os_ver;
+$os_maj =~ s/\..*//;
+$os_maj = "$os.$os_maj";
+
 my $default_prefix = "usr/local";
 
 my $root = `pwd`;
@@ -35,8 +43,10 @@ if ($curl eq '') {
 }
 
 my $tarspec = $prefix;
-## Recent macOS makes /usr/local read-only, so we exclude /usr/local itself
-$tarspec = "$prefix/*" if ($prefix eq 'usr/local');
+if ($os eq "darwin") {
+    ## Recent macOS makes /usr/local read-only, so we exclude /usr/local itself
+    $tarspec = "$prefix/*" if ($prefix eq 'usr/local');
+}
 
 sub read_dcf {
     my %h;
@@ -150,14 +160,6 @@ foreach my $name (keys %pkgs) {
         exit 1;
     }
 }
-
-my $os = lc `uname`; chomp $os;
-my $arch = lc `uname -m`; chomp $arch;
-my $os_ver = `uname -r`; chomp $os_ver;
-$os_ver=$ENV{OS_VER} if ($ENV{OS_VER} ne '');
-my $os_maj = $os_ver;
-$os_maj =~ s/\..*//;
-$os_maj = "$os.$os_maj";
 
 ## auto-detect the binaries to pull from mac.R-project.org
 if ($binary && $binary_url eq '') {
