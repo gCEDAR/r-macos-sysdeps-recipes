@@ -43,36 +43,36 @@ sub read_dcf {
     my $fn = $_[0], $key, $par = 1;
     open IN, $fn || die "Cannot open $fn";
     while (<IN>) {
-	chomp;
-	if (/^([#A-Za-z\._0-9\-]+):\s*(.*)$/) {
-	    if ($section > 1) {
-		print STDERR "WARNING: more than one paragraph in $fn, ignoring\n";
-		return %h;
-	    }
-	    $key = lc($1);
-	    my $val = $2;
-	    if ($h{$key} ne '') {
-		print STDERR "WARNING: duplicate section '$key' in $fn\n";
-		$h{$key} .= " $val";
-	    } else {
-		$h{$key} = $val;
-	    }
-	} elsif (/^\s+(.*)/) {
-	    if ($key eq '') {
-		print STDERR "ERROR: invalid DCF file $fn, continuation without parent: $_\n";
-		exit 1;
-	    }
-	    if ($section > 1) {
-		print STDERR "WARNING: more than one paragraph in $fn, ignoring\n";
-		return %h;
-	    }
-	    $h{$key} .= " $_";
-	} elsif (/^$/) {
-	    $section++;
-	} else {
-	    print STDERR "ERROR: invalid DCF file $fn: $_\n";
-	    exit 1;
-	}
+    chomp;
+    if (/^([#A-Za-z\._0-9\-]+):\s*(.*)$/) {
+        if ($section > 1) {
+            print STDERR "WARNING: more than one paragraph in $fn, ignoring\n";
+            return %h;
+        }
+        $key = lc($1);
+        my $val = $2;
+        if ($h{$key} ne '') {
+            print STDERR "WARNING: duplicate section '$key' in $fn\n";
+            $h{$key} .= " $val";
+        } else {
+            $h{$key} = $val;
+        }
+    } elsif (/^\s+(.*)/) {
+        if ($key eq '') {
+            print STDERR "ERROR: invalid DCF file $fn, continuation without parent: $_\n";
+            exit 1;
+        }
+        if ($section > 1) {
+            print STDERR "WARNING: more than one paragraph in $fn, ignoring\n";
+            return %h;
+        }
+        $h{$key} .= " $_";
+    } elsif (/^$/) {
+        $section++;
+    } else {
+        print STDERR "ERROR: invalid DCF file $fn: $_\n";
+        exit 1;
+    }
     }
     return %h;
 }
@@ -80,15 +80,15 @@ sub read_dcf {
 sub get_deps {
     my @a = split /\s*,\s*/, $_[0];
     return map {
-	my %d;
-	my $pkg = $_;
-	if (/(.*) \(([<=>]+)\s*([0-9.]+)\)/) {
-	    $d{'op'} = $2;
-	    $d{'ver'} = $3;
-	    $pkg = $1;
-	}
-	$d{'name'} = $pkg;
-	\%d;
+    my %d;
+    my $pkg = $_;
+    if (/(.*) \(([<=>]+)\s*([0-9.]+)\)/) {
+        $d{'op'} = $2;
+        $d{'ver'} = $3;
+        $pkg = $1;
+    }
+    $d{'name'} = $pkg;
+    \%d;
     } @a;
 }
 
@@ -114,10 +114,10 @@ foreach $fn (@f) {
 #    print "$fn: '$dep' "; foreach (@deps) { my %h=%$_; print "[$h{name}] "; }; print "\n";
 
     if ($ver eq '' && $src eq '') { ## virtual
-	$pkgs{$pkg} = { pkg => $pkg, dep => \@deps, sug => \@sugs, d => \%d };
+        $pkgs{$pkg} = { pkg => $pkg, dep => \@deps, sug => \@sugs, d => \%d };
     } else {
-	$patch = (-e "$root/$fn.patch") ? "$root/$fn.patch" : "";
-	$pkgs{$pkg} = { pkg => $pkg, ver => $ver, dep => \@deps, src => $src, d => \%d, patch => $patch, sug => \@sugs };
+        $patch = (-e "$root/$fn.patch") ? "$root/$fn.patch" : "";
+        $pkgs{$pkg} = { pkg => $pkg, ver => $ver, dep => \@deps, src => $src, d => \%d, patch => $patch, sug => \@sugs };
     }
 }
 
@@ -127,27 +127,27 @@ my $ok = 1;
 foreach my $name (keys %pkgs) {
     my %pkg = %{$pkgs{$name}};
     foreach my $c (@{$pkg{dep}}) {
-	my %cond = %$c;
-	if ($cond{name} ne '') {
-	    if (! defined $pkgs{$cond{name}}) {
-		print STDERR "ERROR: $name requires $cond{name} for which we have no recipe";
-		$ok = 0;
-	    } elsif ($cond{op} ne '') {
-		if ($cond{op} ne ">=") {
-		    print STDERR "WARNING: $name uses condition $cond{name} $cond{op} $cond{ver}, but we only supprot >= operators at this point";
-		} else {
+        my %cond = %$c;
+        if ($cond{name} ne '') {
+            if (! defined $pkgs{$cond{name}}) {
+                print STDERR "ERROR: $name requires $cond{name} for which we have no recipe";
+                $ok = 0;
+            } elsif ($cond{op} ne '') {
+                if ($cond{op} ne ">=") {
+                    print STDERR "WARNING: $name uses condition $cond{name} $cond{op} $cond{ver}, but we only supprot >= operators at this point";
+                } else {
 # FIXME: implement version comparison
 #                   if (pkgs[[cond$name]]$nver < cond$version) {
-#		       message("ERROR: ", pkg, "requires ",cond$name," ",cond$op, " ", as.character(cond$version), ", but ", cond$name, " is only available in ", pkgs[[cond$name]]$ver)
-#			ok <- FALSE
+#                       message("ERROR: ", pkg, "requires ",cond$name," ",cond$op, " ", as.character(cond$version), ", but ", cond$name, " is only available in ", pkgs[[cond$name]]$ver)
+#                       ok <- FALSE
 #                   }
-		}
-	    }
-	}
+                }
+            }
+        }
     }
     if (!$ok) {
-	print STDERR "=== bailing out, dependencies not met ===\n\n";
-	exit 1;
+        print STDERR "=== bailing out, dependencies not met ===\n\n";
+        exit 1;
     }
 }
 
@@ -210,9 +210,9 @@ $TAR = 'tar' if ($TAR eq '');
 print OUT "TAR='$TAR'\nPREFIX='$prefix'\n\n";
 
 if(system("$TAR c --uid 0 /dev/null > /dev/null 2>&1")) {
-  print "NOTE: your tar does not support --uid so it won't be set\n";
+    print "NOTE: your tar does not support --uid so it won't be set\n";
 } else {
-  $tarflags='--uid 0 --gid 80';
+    $tarflags='--uid 0 --gid 80';
 }
 
 sub dep_targets {
@@ -256,20 +256,25 @@ foreach my $name (sort keys %pkgs) {
     my $cfg_proc = ($d{'configure.driver'} ne '') ? $d{'configure.driver'} : '';
     my $cfg_chmod = ($d{'configure.chmod'} ne '') ? $d{'configure.chmod'} : '';
     my $mkinst = ($d{'install'} ne '') ? $d{'install'} : "make install";
+
+    if ($pkg{src} =~ /https:\/\/download.savannah/) { ## workaround mirror problems
+        $pkg{src} =~ s/download.savannah/download-mirror.savannah/;
+    }
+
     my $tar = $pkg{src};
     $tar =~ s/.*\///;
     if ($pkg{ver} eq '') { ## virtual
-	print OUT "$pkg{pkg}: ".dep_targets($pkg{dep})."\n\techo 'Bundle: $pkg{pkg}~Depends: $d{depends}~BuiltWith: ".dep_targets($pkg{dep}, ", ")."~BuiltFor: $os_maj-$arch~' | tr '~' '\\n' > '\$\@' && cp '\$\@' '\$\@.bundle' && touch '\$\@'\n";
-	next;
+        print OUT "$pkg{pkg}: ".dep_targets($pkg{dep})."\n\techo 'Bundle: $pkg{pkg}~Depends: $d{depends}~BuiltWith: ".dep_targets($pkg{dep}, ", ")."~BuiltFor: $os_maj-$arch~' | tr '~' '\\n' > '\$\@' && cp '\$\@' '\$\@.bundle' && touch '\$\@'\n";
+        next;
     }
 
     if (!$binary) {
         if ($d{special} =~ /in-sources/) { ## requires in-sources install
-        $cfg_chmod = "chmod $cfg_chmod ".shQuote($cfg_scr)." && " if ($cfg_chmod ne '');
-        print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && rsync -a src/$pv$srcdir/ $pv-obj/ && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ./$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
+            $cfg_chmod = "chmod $cfg_chmod ".shQuote($cfg_scr)." && " if ($cfg_chmod ne '');
+            print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && rsync -a src/$pv$srcdir/ $pv-obj/ && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ./$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
         } else {
-        $cfg_chmod = "chmod $cfg_chmod ".shQuote("../src/$pv$srcdir/$cfg_scr")." && " if ($cfg_chmod ne '');
-        print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && mkdir $pv-obj && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ../src/$pv$srcdir/$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
+            $cfg_chmod = "chmod $cfg_chmod ".shQuote("../src/$pv$srcdir/$cfg_scr")." && " if ($cfg_chmod ne '');
+            print OUT "$pv-dst: src/$pv ".dep_targets($pkg{dep})."\n\trm -rf $pv-obj \$\@ && mkdir $pv-obj && cd $pv-obj && ${cfg_chmod}PREFIX=$prefix $cfg_proc ../src/$pv$srcdir/$cfg_scr ".cfg($pkg{d})." && PREFIX=$prefix make MAKELEVEL=0 -j$jobs && PREFIX=$prefix $mkinst DESTDIR=$root/build/$pv-dst\n\n";
         }
         $do_patch = ($pkg{patch} ne '') ? "&& patch -p1 < ".shQuote($pkg{patch}) : '';
         $do_patch = "$do_patch && cp ". shQuote($bsys) ." configure" if ($bsys ne '');
