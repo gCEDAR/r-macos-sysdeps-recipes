@@ -16,3 +16,5 @@ RUN echo "" >> /etc/ssl/openssl.cnf
 RUN echo "[system_default_sect]" >> /etc/ssl/openssl.cnf
 RUN echo "Options = UnsafeLegacyServerConnect" >> /etc/ssl/openssl.cnf
 RUN echo "Options = UnsafeLegacyRenegotiation" >> /etc/ssl/openssl.cnf
+
+WORKDIR /app
