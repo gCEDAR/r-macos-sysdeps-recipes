@@ -1,0 +1,36 @@
+--- freetype-2.13.0.orig/builds/unix/install.mk	2023-02-04 15:00:05
++++ freetype-2.13.0/builds/unix/install.mk	2023-07-11 13:33:06
+@@ -72,6 +72,10 @@
+ 	$(INSTALL_DATA) $(TOP_DIR)/docs/freetype-config.1              \
+           $(DESTDIR)$(mandir)/man1/freetype-config.1
+ endif
++ifneq (,$(wildcard $(TOP_DIR)/builds/unix/post-install))
++	-chmod a+x $(TOP_DIR)/builds/unix/post-install
++	-$(TOP_DIR)/builds/unix/post-install "$(DESTDIR)" "$(libdir)"
++endif
+ 
+ 
+ uninstall:
+
+--- freetype-2.13.0.orig/builds/unix/post-install	2023-07-11 13:59:50
++++ freetype-2.13.0/builds/unix/post-install	2023-07-11 13:54:41
+@@ -0,0 +1,19 @@
++#!/bin/bash
++
++dest_dir="$1"
++lib_dir="$2"
++
++echo "***"
++echo "*** POST INSTALL SCRIPT"
++echo "***"
++
++if [ -f ${dest_dir}${lib_dir}/libfreetype.la ]; then
++	IN=$(cat ${dest_dir}${lib_dir}/libfreetype.la | grep dependency_libs=)
++	if [[ "$IN" =~ /usr/local/lib/libharfbuzz\.la.*/usr/local/lib/libfreetype\.la ]]; then
++		echo "Correct linking order for static freetype + harfbuzz."
++		sed -i "s~\(/usr/local/lib/libharfbuzz\.la\)\(.*\)\(/usr/local/lib/libfreetype\.la\)~\3\2\1~" ${dest_dir}${lib_dir}/libfreetype.la
++		echo "Done: $(cat ${dest_dir}${lib_dir}/libfreetype.la | grep dependency_libs=)"
++	else
++		echo "Nothing to do"
++	fi
++fi
