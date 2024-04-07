@@ -1,0 +1,5 @@
+Package: yaml-cpp
+Version: 0.7.0
+Source.URL: https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-${ver}.tar.gz
+Build-system: cmake
+Configure: -DBUILD_SHARED_LIBS=OFF
