@@ -126,7 +126,7 @@ foreach $fn (@f) {
     if ($ver eq '' && $src eq '') { ## virtual
         $pkgs{$pkg} = { pkg => $pkg, dep => \@deps, sug => \@sugs, d => \%d };
     } else {
-        $patch = (-e "$root/$fn.patch") ? "$root/$fn.patch" : "";
+        $patch = (-e "$root/$fn.$os.patch") ? "$root/$fn.$os.patch" : ((-e "$root/$fn.patch") ? "$root/$fn.patch" : "");
         $pkgs{$pkg} = { pkg => $pkg, ver => $ver, dep => \@deps, src => $src, d => \%d, patch => $patch, sug => \@sugs };
     }
 }
