@@ -7,16 +7,20 @@ if [ ! -e build.sh ]; then
     exit 1
 fi
 
+RUN_PKGS=''
+
 while (( "$#" )); do
-    if [ "x$1" = x--tools ]; then RUN_TOOLS=1; fi
-    if [ "x$1" = x--all ]; then RUN_ALL=1; fi
-    if [ "x$1" = x-h -o "x$1" = x--help ]; then
+    if [ "x$1" = x--tools ]; then RUN_TOOLS=1;
+    elif [ "x$1" = x--all ]; then RUN_ALL=1;
+    elif [ "x$1" = x-h -o "x$1" = x--help ]; then
         echo ''
-        echo " Usage: $0 [-h|--help] [--tools | --all]"
+        echo " Usage: $0 [-h|--help] [--tools | --all] <pkgs. list>"
         echo ''
         echo " Default is --base (r-base-dev), tools include emacs and subversion."
         echo ''
         exit 0
+    else
+        RUN_PKGS="$RUN_PKGS $1"
     fi
     shift
 done
@@ -80,6 +84,8 @@ fi
 ## all others
 if [ -n "$RUN_ALL" ]; then
     ./build.sh -f -p all
+elif [ -n "$RUN_PKGS" ]; then
+    ./build.sh -f -p $RUN_PKGS
 fi
 
 ## NOTE: if you want to disable fail-fast, use
