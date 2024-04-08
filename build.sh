@@ -127,7 +127,7 @@ if [ ! -e build/Makefile ]; then
       echo 'build/Makefile created.'
       echo ''
       if ! tty -s; then
-        cat build/Makefile
+        cat build/Makefile | nl
       fi
     else
       echo "ERROR: Makefile generation failed" >&2
