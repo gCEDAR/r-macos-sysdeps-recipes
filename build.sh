@@ -126,6 +126,9 @@ if [ ! -e build/Makefile ]; then
     if $RUN; then
       echo 'build/Makefile created.'
       echo ''
+      if ! tty -s; then
+        cat build/Makefile
+      fi
     else
       echo "ERROR: Makefile generation failed" >&2
       exit 1
