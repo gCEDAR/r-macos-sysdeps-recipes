@@ -28,6 +28,7 @@ done
 source /etc/os-release
 
 echo "Running OS:"
+echo '==========='
 echo "        NAME: $NAME"
 echo "          ID: $ID"
 echo "  VERSION_ID: $VERSION_ID"
@@ -64,6 +65,12 @@ else
         exit 1
     fi
 fi
+
+echo "Running build:"
+echo '=============='
+echo "   RUN_TOOLS: $RUN_TOOLS"
+echo "     RUN_ALL: $RUN_ALL"
+echo "    RUN_PKGS: $RUN_PKGS"
 
 ## freetype and harfbuzz have a circular dependency
 ## and need to be bootstrapped in the order FT -> HB -> FT
