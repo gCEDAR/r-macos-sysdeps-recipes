@@ -49,6 +49,7 @@ while (( "$#" )); do
     shift
 done
 
+echo "Build env: ${SD}, ${BD}, $(pwd)"
 echo "Build args: ${MARGS[@]} ${default_target}"
 echo "Install args: ${install_target} DESTDIR=\$(DESTDIR) ${MARGS[@]}"
 
