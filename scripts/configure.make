@@ -49,12 +49,13 @@ while (( "$#" )); do
     shift
 done
 
-echo "Build env: ${SD}, ${BD}, $(pwd)"
+echo "Build env: ${SD}, ${BD}"
 echo "Build args: ${MARGS[@]} ${default_target}"
 echo "Install args: ${install_target} DESTDIR=\$(DESTDIR) ${MARGS[@]}"
 
-echo Copying sources ...
-cp -p -R "${SD}/" .
+echo "Copying sources ..."
+cp -p -R "${SD}/*" .
+ls -l
 
 mv "$BD/Makefile" "$BD/Makefile.real"
 
