@@ -54,7 +54,7 @@ echo "Build args: ${MARGS[@]} ${default_target}"
 echo "Install args: ${install_target} DESTDIR=\$(DESTDIR) ${MARGS[@]}"
 
 echo "Copying sources ..."
-cp -p -R "${SD}/*" .
+cp -pR "${SD}/." .
 echo "Content $(pwd):"
 ls -l
 
