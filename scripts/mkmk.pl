@@ -280,7 +280,7 @@ foreach my $name (sort keys %pkgs) {
         }
         $do_patch = ($pkg{patch} ne '') ? "&& patch -p1 < ".shQuote($pkg{patch}) : '';
         $do_patch = "$do_patch && cp ". shQuote($bsys) ." configure" if ($bsys ne '');
-        print OUT "src/$pv: src/$tar\n\tmkdir -p src/$pv && (cd src/$pv && \$(TAR) $tarextract ../$tar && mv */* . && ls -l && $do_patch)\n";
+        print OUT "src/$pv: src/$tar\n\tmkdir -p src/$pv && (cd src/$pv && \$(TAR) $tarextract ../$tar && mv */* . && ls -l $do_patch)\n";
         print OUT "src/$tar:\n\t$curl -L -o \$\@ '$pkg{src}'\n";
         print OUT "$pv-$os_maj-$arch.tar.gz: $pv-dst\n\tif [ ! -e \$^/$prefix/pkg ]; then mkdir \$^/$prefix/pkg; fi\n\t(cd \$^ && find $prefix > $prefix/pkg/$pv-$os_maj-$arch.list )\n$chown\t\$(TAR) fcz '\$\@' $tarflags -C '\$^' $dist\n";
     } else {
