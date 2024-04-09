@@ -2,4 +2,4 @@ Package: emacs
 Version: 28.2
 Depends: pkgconfig
 Source.URL: http://ftp.gnu.org/gnu/emacs/emacs-${ver}.tar.xz
-Configure.darwin: --with-x-toolkit=no --without-all --without-x --without-toolkit-scroll-bars --without-ns --with-threads --with-modules
+Configure: --with-x-toolkit=no --without-all --without-x --without-toolkit-scroll-bars --without-ns --with-threads --with-modules
