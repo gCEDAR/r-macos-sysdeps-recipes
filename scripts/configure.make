@@ -55,6 +55,7 @@ echo "Install args: ${install_target} DESTDIR=\$(DESTDIR) ${MARGS[@]}"
 
 echo "Copying sources ..."
 cp -p -R "${SD}/*" .
+echo "Content $(pwd):"
 ls -l
 
 mv "$BD/Makefile" "$BD/Makefile.real"
