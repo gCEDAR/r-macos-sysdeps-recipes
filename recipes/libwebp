@@ -1,5 +1,5 @@
 Package: libwebp
 Version: 1.3.2
-Depends: libpng, jpeg
+Depends: libpng, jpeg, xz
 Source.URL: https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-${ver}.tar.gz
-Configure: LIBS='-lz -ljpeg'
+Configure: LIBS='-lz -ljpeg -llzma'
