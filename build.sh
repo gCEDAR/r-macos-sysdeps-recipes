@@ -22,7 +22,7 @@ for ((i=1;i<=$#;i++)); do
 	    echo ' -f  - create builds/Makefile even if it exists'
 	    echo ' -b  - install from binaries'
 	    echo ' -p  - use Perl even if R is present'
-	    echo ' --  - any further arguments are passed ann not interpreted'
+	    echo ' --  - any further arguments are passed and not interpreted'
 	    echo ' -h  - this help page'
 	    echo ' ... additional arguments passed to make'
 	    echo ''
