@@ -1,6 +1,6 @@
 Package: apr-util
 Version: 1.6.3
-Depends: apr, pkgconfig, openssl
+Depends: apr, pkgconfig, openssl, expat
 Source.URL: https://archive.apache.org/dist/apr/apr-util-${ver}.tar.bz2
 Configure.darwin: --with-apr=/${PREFIX} --with-crypto --with-openssl=/${PREFIX}
 Configure.linux: --with-apr=/${PREFIX} --with-crypto --with-openssl=/${PREFIX} LIBS=-ldl
