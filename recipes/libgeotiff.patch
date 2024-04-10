@@ -7,3 +7,16 @@ diff -Nur libgeotiff-1.7.1/Makefile.orig.am  libgeotiff-1.7.1/Makefile.am
 
  AUTOMAKE_OPTIONS = dist-zip subdir-objects
  ACLOCAL_AMFLAGS = -I m4
+
+diff -Nur libgeotiff-1.7.1/Makefile.orig.in libgeotiff-1.7.1/Makefile.in
+--- libgeotiff-1.7.1/Makefile.orig.in	2024-04-10 10:07:11.802559007 +0000
++++ libgeotiff-1.7.1/Makefile.in	2024-04-10 10:07:38.081916005 +0000
+@@ -470,7 +470,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = libxtiff . bin man cmake test
++SUBDIRS = libxtiff . man cmake
+ AUTOMAKE_OPTIONS = dist-zip subdir-objects
+ ACLOCAL_AMFLAGS = -I m4
+ @DX_COND_doc_TRUE@@DX_COND_html_TRUE@DX_CLEAN_HTML = @DX_DOCDIR@/html
