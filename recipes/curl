@@ -1,5 +1,0 @@
-Package: curl
-Version: 7.88.1
-Depends: pkgconfig, openssl
-Source.URL: https://github.com/curl/curl/releases/download/curl-7_88_1/curl-${ver}.tar.gz
-Configure: --with-openssl
