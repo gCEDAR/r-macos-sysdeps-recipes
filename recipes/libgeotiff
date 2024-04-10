@@ -1,6 +1,6 @@
 Package: libgeotiff
 Version: 1.7.1
 Depends: jpeg, tiff, proj (>= 6.0)
-Build-system: cmake
 Source.URL: https://github.com/OSGeo/libgeotiff/releases/download/${ver}/libgeotiff-${ver}.tar.gz
-Configure: -DWITH_UTILITIES=OFF
+Build-system: cmake
+Configure: -DWITH_UTILITIES=OFF -DCMAKE_EXE_LINKER_FLAGS="`pkg-config --static --libs libtiff-4`"
