@@ -17,7 +17,7 @@ diff -ruN serf-1.3.9/Makefile serf-1.3.9-fixed/Makefile
 +install:
 +	for i in lib include lib/pkgconfig; do if [ ! -e "$(DESTDIR)/$(PREFIX)/$$i" ]; then mkdir -p "$(DESTDIR)/$(PREFIX)/$$i"; fi; done
 +	cp -p libserf-1.a '$(DESTDIR)/$(PREFIX)/lib/'
-+	sed -i 's~\.la~.a~' serf-1.pc && cp -p serf-1.pc '$(DESTDIR)/$(PREFIX)/lib/pkgconfig'
++	sed -i 's~\.la~.a~g' serf-1.pc && cp -p serf-1.pc '$(DESTDIR)/$(PREFIX)/lib/pkgconfig'
 +	cp -p serf.h serf_bucket_types.h serf_bucket_util.h '$(DESTDIR)/$(PREFIX)/include/'
 diff -ruN serf-1.3.9/SConstruct serf-1.3.9-fixed/SConstruct
 --- serf-1.3.9/SConstruct	2015-09-18 00:46:24
