@@ -2,4 +2,4 @@ Package: postgresql
 Version: 12.4
 Source.URL: http://ftp.postgresql.org/pub/source/v${ver}/postgresql-${ver}.tar.gz
 Depends: openssl
-Configure: --with-python --with-openssl
+Configure: --without-python --with-openssl
