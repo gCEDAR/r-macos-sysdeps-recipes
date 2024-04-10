@@ -1,6 +1,6 @@
 diff -Nur libgeotiff-1.7.1/Makefile.orig.am  libgeotiff-1.7.1/Makefile.am
---- Makefile.orig.am	2024-04-10 09:59:49.844467011 +0000
-+++ Makefile.am	2024-04-10 10:00:12.662493007 +0000
+--- libgeotiff-1.7.1/Makefile.orig.am	2024-04-10 09:59:49.844467011 +0000
++++ libgeotiff-1.7.1/Makefile.am	2024-04-10 10:00:12.662493007 +0000
 @@ -1,4 +1,4 @@
 -SUBDIRS = libxtiff . bin man cmake test
 +SUBDIRS = libxtiff . man cmake
