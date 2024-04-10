@@ -4,4 +4,4 @@ Depends: pkgconfig, tiff, libpng, jpeg, sqlite3
 Source.URL: https://github.com/OSGeo/PROJ/releases/download/${ver}/proj-${ver}.tar.gz
 Build-system: cmake
 Configure.darwin: -DCMAKE_EXE_LINKER_FLAGS="`pkg-config --static --libs libtiff-4`" -DCMAKE_C_FLAGS="`pkg-config --cflags libtiff-4`"
-Configure.linux: -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF
+Configure.linux: -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_EXE_LINKER_FLAGS="-lz"
