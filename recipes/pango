@@ -3,4 +3,5 @@ Version: 1.50.14
 Depends: glib, cairo, freetype, harfbuzz, fontconfig, fribidi
 Build-system: meson-ninja
 Source.URL: https://download.gnome.org/sources/pango/1.50/pango-${ver}.tar.xz
+Configure.linux: LDFLAGS='-L/${prefix}/lib -lbz2 -lpng -lz -lpixman-1 -lxml2 -llzma -liconv'
 Configure.darwin: LDFLAGS='-framework Foundation -L/${prefix}/lib -lbz2 -lpng -lz -lpixman-1 -lxml2 -llzma -liconv'
