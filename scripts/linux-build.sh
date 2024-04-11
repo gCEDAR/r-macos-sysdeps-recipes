@@ -8,13 +8,15 @@ if [ ! -e build.sh ]; then
 fi
 
 RUN_PKGS=''
+FORCE=''
 
 while (( "$#" )); do
     if [ "x$1" = x--tools ]; then RUN_TOOLS=1;
     elif [ "x$1" = x--all ]; then RUN_ALL=1;
+    elif [ "x$1" = x--force ]; then FORCE='-f';
     elif [ "x$1" = x-h -o "x$1" = x--help ]; then
         echo ''
-        echo " Usage: $0 [-h|--help] [--tools | --all] <pkgs. list>"
+        echo " Usage: $0 [-h|--help] --force [--tools | --all] <pkgs. list>"
         echo ''
         echo " Default is --base (r-base-dev), tools include emacs and subversion."
         echo ''
@@ -72,28 +74,29 @@ echo "   RUN_TOOLS: $RUN_TOOLS"
 echo "     RUN_ALL: $RUN_ALL"
 echo "    RUN_PKGS: $RUN_PKGS"
 echo "         TTY: $(tty)"
+echo "       FORCE: $$FORCE"
 
 ## freetype and harfbuzz have a circular dependency
 ## and need to be bootstrapped in the order FT -> HB -> FT
-./build.sh -f -p freetype
-./build.sh -f -p harfbuzz
+./build.sh $FORCE -p freetype
+./build.sh $FORCE -p harfbuzz
 rm -rf build/freetype-2.*
 
 ## required
-./build.sh -f -p r-base-dev
+./build.sh $FORCE -p r-base-dev
 
 ## NOTE: CRAN R also uses: readline5 pango
 
 ## useful
 if [ -n "$RUN_TOOLS" ]; then
-    ./build.sh -f -p subversion emacs
+    ./build.sh $FORCE -p subversion emacs
 fi
 
 ## all others
 if [ -n "$RUN_ALL" ]; then
-    ./build.sh -f -p all
+    ./build.sh $FORCE -p all
 elif [ -n "$RUN_PKGS" ]; then
-    ./build.sh -f -p $RUN_PKGS
+    ./build.sh $FORCE -p $RUN_PKGS
 fi
 
 ## NOTE: if you want to disable fail-fast, use
