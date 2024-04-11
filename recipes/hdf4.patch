@@ -1,0 +1,37 @@
+--- hdf-4.2.15/mfhdf/ncgen/Makefile.am	2024-04-11 14:24:52
++++ hdf-4.2.15/mfhdf/ncgen/Makefile.orig.am	2024-04-11 14:24:29
+@@ -79,14 +79,14 @@
+ 
+ ftest0$(EXEEXT):		ncgen$(EXEEXT) test0.cdl netcdf.inc
+ 	$(TESTS_ENVIRONMENT) ./ncgen -f -o ftest0.nc $(srcdir)/test0.cdl > test0.f
+-	$(F77) $(FFLAGS) -o $@ test0.f $(SHLIBLOC) $(LDFLAGS $(LIBS)
++	$(F77) $(FFLAGS) -o $@ test0.f $(LDFLAGS) $(SHLIBLOC) $(LIBS)
+ endif
+ endif
+ 
+ ctest0$(EXEEXT):		ncgen$(EXEEXT) $(srcdir)/test0.cdl
+ 	$(TESTS_ENVIRONMENT) ./ncgen -c -o ctest0.nc $(srcdir)/test0.cdl > test0.c
+ 	$(COMPILE) -c -o ctest0$(EXEEXT).o test0.c
+-	$(LINK) ctest0$(EXEEXT).o $(ctest0_LDADD) $(SHLIBLOC) $(LDFLAGS $(LIBS)
++	$(LINK) ctest0$(EXEEXT).o $(ctest0_LDADD) $(LDFLAGS) $(SHLIBLOC) $(LIBS)
+ 
+ TEST_SCRIPT = testncgen.sh
+ check_SCRIPTS = testncgen.sh
+
+--- hdf-4.2.15/mfhdf/ncgen/Makefile.in	2024-04-11 14:27:17
++++ hdf-4.2.15/mfhdf/ncgen/Makefile.orig.in	2024-04-11 14:27:00
+@@ -1212,12 +1212,12 @@
+ 
+ @HDF_BUILD_FORTRAN_TRUE@@HDF_BUILD_NETCDF_TRUE@ftest0$(EXEEXT):		ncgen$(EXEEXT) test0.cdl netcdf.inc
+ @HDF_BUILD_FORTRAN_TRUE@@HDF_BUILD_NETCDF_TRUE@	$(TESTS_ENVIRONMENT) ./ncgen -f -o ftest0.nc $(srcdir)/test0.cdl > test0.f
+-@HDF_BUILD_FORTRAN_TRUE@@HDF_BUILD_NETCDF_TRUE@	$(F77) $(FFLAGS) -o $@ test0.f $(SHLIBLOC) $(LDFLAGS) $(LIBS)
++@HDF_BUILD_FORTRAN_TRUE@@HDF_BUILD_NETCDF_TRUE@	$(F77) $(FFLAGS) -o $@ test0.f $(LDFLAGS) $(SHLIBLOC) $(LIBS)
+ 
+ ctest0$(EXEEXT):		ncgen$(EXEEXT) $(srcdir)/test0.cdl
+ 	$(TESTS_ENVIRONMENT) ./ncgen -c -o ctest0.nc $(srcdir)/test0.cdl > test0.c
+ 	$(COMPILE) -c -o ctest0$(EXEEXT).o test0.c
+-	$(LINK) ctest0$(EXEEXT).o $(ctest0_LDADD) $(SHLIBLOC) $(LDFLAGS) $(LIBS)
++	$(LINK) ctest0$(EXEEXT).o $(ctest0_LDADD) $(LDFLAGS) $(SHLIBLOC) $(LIBS)
+ 
+ # lib/progs/tests targets recurse into subdirectories. build-* targets
+ # build files in this directory.
