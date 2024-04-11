@@ -4,4 +4,4 @@ Depends: pixman, pcre, xz, libpng, ffi, gettext
 Build-system: meson-ninja
 Source.URL: https://download.gnome.org/sources/glib/2.76/glib-${ver}.tar.xz
 Configure.darwin: LDFLAGS='-framework Foundation -L/${prefix}/lib -lbz2 -lpng -lz -lpixman-1 -lxml2 -llzma -liconv'
-
+Configure.linux: LDFLAGS='-L/${prefix}/lib -lbz2 -lpng -lz -lpixman-1 -lxml2 -llzma'
