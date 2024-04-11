@@ -54,7 +54,7 @@ fi
 if command -v meson > /dev/null && command -v ninja > /dev/null; then
     echo "ninja and meson are already on the PATH"
 else
-    PYLIB=$(ls -d ~/Library/Python/3.*/bin | tail -n1)
+    PYLIB=$(ls -d ~/.local/bin | tail -n1)
     if [ -z "$PYLIB" ]; then
         echo "ERROR: cannot find Python 3 binaries. Use pip3 install --user meson ninja"
         exit 1
