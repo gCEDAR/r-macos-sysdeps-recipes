@@ -1,0 +1,16 @@
+## For use with macOS system libxml2,
+## which seems to have been 2.9.4 (May 2016) for a long time
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/libxml2
+modules=1
+
+Name: libXML
+Version: 2.9.4
+Description: libXML library version2.
+Requires:
+Libs: -lxml2
+## static libs most likely need -llzma  -liconv
+Libs.private: -lpthread -lz  -lm 
+Cflags: -I${includedir}
