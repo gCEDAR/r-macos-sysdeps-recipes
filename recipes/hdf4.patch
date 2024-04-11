@@ -4,8 +4,8 @@
  if HDF_BUILD_SHARED
      SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.$(SHARED_EXTENSION) $(top_builddir)/hdf/src/.libs/libdf.$(SHARED_EXTENSION)
  else
--    SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a $(top_builddir)/mfhdf/xdr/.libs/libxdr.a
-+    SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a
+-    SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a
++    SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a $(top_builddir)/mfhdf/xdr/.libs/libxdr.a
  endif
  
  ## Setup the different includes and preprocessor #defines we need.
@@ -16,8 +16,8 @@
  #############################################################################
  CHECK_CLEANFILES = *.chkexe *.chklog ctest1.cdl ftest1.cdl test0.nc \
  	test1.cdl test1.nc test2.cdl
--@HDF_BUILD_SHARED_FALSE@SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a $(top_builddir)/mfhdf/xdr/.libs/libxdr.a
-+@HDF_BUILD_SHARED_FALSE@SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a
+-@HDF_BUILD_SHARED_FALSE@SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a
++@HDF_BUILD_SHARED_FALSE@SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.a $(top_builddir)/hdf/src/.libs/libdf.a $(top_builddir)/mfhdf/xdr/.libs/libxdr.a
  @HDF_BUILD_SHARED_TRUE@SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.$(SHARED_EXTENSION) $(top_builddir)/hdf/src/.libs/libdf.$(SHARED_EXTENSION)
  ncgen_INCLUDES = -I$(top_srcdir)/hdf/src   \
           -I$(top_srcdir)/mfhdf/libsrc    \
