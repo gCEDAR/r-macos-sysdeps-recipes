@@ -74,7 +74,7 @@ echo "   RUN_TOOLS: $RUN_TOOLS"
 echo "     RUN_ALL: $RUN_ALL"
 echo "    RUN_PKGS: $RUN_PKGS"
 echo "         TTY: $(tty)"
-echo "       FORCE: $$FORCE"
+echo "       FORCE: $FORCE"
 
 ## freetype and harfbuzz have a circular dependency
 ## and need to be bootstrapped in the order FT -> HB -> FT
