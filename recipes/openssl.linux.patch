@@ -1,0 +1,11 @@
+--- openssl-1.1.1w/Configurations/unix-Makefile.orig.tmpl	2024-04-12 13:34:58
++++ openssl-1.1.1w/Configurations/unix-Makefile.tmpl	2024-04-12 13:36:52
+@@ -964,7 +964,7 @@
+ 	    echo 'Name: OpenSSL-libcrypto'; \
+ 	    echo 'Description: OpenSSL cryptography library'; \
+ 	    echo 'Version: '$(VERSION); \
+-	    echo 'Libs: -L$${libdir} -lcrypto'; \
++	    echo 'Libs: -L$${libdir} -lcrypto -lpthread'; \
+ 	    echo 'Libs.private: $(LIB_EX_LIBS)'; \
+ 	    echo 'Cflags: -I$${includedir}' ) > libcrypto.pc
+ 
