@@ -13,7 +13,7 @@ diff -Nru test_0.0/configure xx/configure
 +	echo Installing from $src to \$(DESTDIR)/\$(PREFIX)
 +	echo Current directory $PWD
 +	mkdir -p \$(DESTDIR)/\$(PREFIX)
-+	mv ${src}/* .
++	cp -pr ${src}/* .
 +	./bootstrap.sh --prefix=\$(DESTDIR)/\$(PREFIX)
 +	./b2 --prefix=\$(DESTDIR)/\$(PREFIX) toolset=clang-darwin link=static cxxflags='-Wall -g -O2 -fPIC -fvisibility=hidden' cflags='-Wall -g -O2 -fPIC -fvisibility=hidden' install
 +
