@@ -1,8 +1,8 @@
 #!/bin/bash
 
-osname=`uname -s`
-osarch=`uname -m` 
-oshost=`uname -s | tr '[:upper:]' '[:lower:]'`
+export osname=`uname -s`
+export osarch=`uname -m`
+export oshost=`uname -s | tr '[:upper:]' '[:lower:]'`
 
 ## it is too tedious to maintain two paths, so Perl generator is now
 ## default (since it's required for bootstrap anyway) and R is deprecated
