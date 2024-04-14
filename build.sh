@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export osname=`uname -s`
-export osarch=`uname -m`
-export oshost=`uname -s | tr '[:upper:]' '[:lower:]'`
+osname=$(uname -s)
+osarch=$(uname -m)
+oshost=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 ## it is too tedious to maintain two paths, so Perl generator is now
 ## default (since it's required for bootstrap anyway) and R is deprecated
@@ -135,8 +135,11 @@ if [ ! -e build/Makefile ]; then
     fi
 fi
 
-PWD=`pwd`
+PWD=$(pwd)
 export PKG_CONFIG_PATH=/$PREFIX/lib/pkgconfig:$PWD/stubs/pkgconfig-$oshost:/usr/lib/pkgconfig:/usr/lib/$osarch-$oshost-gnu/pkgconfig
 
 set -e
 unset PREFIX && make -C build "${args[@]}"
+
+echo "COPY stubs configs"
+cp -r $PWD/stubs/pkgconfig-$oshost /usr/local/lib/pkgconfig-stubs
