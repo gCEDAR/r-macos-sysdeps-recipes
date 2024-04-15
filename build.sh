@@ -141,5 +141,5 @@ export PKG_CONFIG_PATH=/$PREFIX/lib/pkgconfig:$PWD/stubs/pkgconfig-$oshost:/usr/
 set -e
 unset PREFIX && make -C build "${args[@]}"
 
-echo "COPY stubs configs"
+echo "COPY stub configs"
 cp -r $PWD/stubs/pkgconfig-$oshost /usr/local/lib/pkgconfig-stubs

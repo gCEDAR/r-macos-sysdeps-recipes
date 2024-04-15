@@ -1,4 +1,5 @@
 Package: libuuid
 Version: 2.34
+Build-system: meson-ninja
 Source.URL: https://github.com/util-linux/util-linux/archive/refs/tags/v${ver}.tar.gz
 Configure: --disable-all-programs --enable-libuuid
