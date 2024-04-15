@@ -31,56 +31,56 @@ foreach $fn (@b, @a) {
 
     $dep = ''; $name = '';
     if ( -e "build/$pkg" ) {
-	my $bundle = 0;
-	open IN, "build/$pkg";
-	while (<IN>) {
+        my $bundle = 0;
+        open IN, "build/$pkg";
+        while (<IN>) {
             if (/^Package:/) {
-		chomp;
-		s/^Package: *//;
-		$name = $_;
+                chomp;
+                s/^Package: *//;
+                $name = $_;
             }
             if (/^Bundle:/) {
-		chomp;
-		s/^Bundle: *//;
-		$name = $_;
-		$bundle = 1;
+                chomp;
+                s/^Bundle: *//;
+                $name = $_;
+                $bundle = 1;
             }
-	}
-	close IN;
-	( $name ne '') || die "ERROR: receipt $pkg does not include package name!\n";
-	( -e "recipes/$name" ) || die "ERROR: cannot find recipe for $name!\n";
-	open IN, "recipes/$name";
-	while (<IN>) {
+        }
+        close IN;
+        ( $name ne '') || die "ERROR: receipt $pkg does not include package name!\n";
+        ( -e "recipes/$name" ) || die "ERROR: cannot find recipe for $name!\n";
+        open IN, "recipes/$name";
+        while (<IN>) {
             $dep .= $_ if (/^(Depends|Suggest)/);
-	}
-	if (!$bundle) {
-	    my $xfn = $fn;
-	    $xfn =~ s/.*\//dist\//;
-	    $xfn =~ s/\.tar\.gz/.tar.xz/;
-	    ($atime, $mtime) = (stat($fn))[8,9];
-	    ($xmtime) = (stat($xfn))[9];
-	    if ( -e $xfn && $xmtime == $mtime) {
-		print "$fn has not changed, skipping re-compression\n";
-	    } else {
-		print "Re-compressing $fn -> $xfn\n";
-		system("gzip -dc $fn | $xz -c9 > '$xfn'") == 0 || die("Cannot re-compress!");
-		system("ls -l $fn");
-		($atime, $mtime) = (stat($fn))[8,9];
-		utime($atime, $mtime, $xfn);
-		system("ls -l $xfn");
-	    }
-	}
-	$out = '';
-	open IN, "build/$pkg";
-	while (<IN>) {
+        }
+        if (!$bundle) {
+            my $xfn = $fn;
+            $xfn =~ s/.*\//dist\//;
+            $xfn =~ s/\.tar\.gz/.tar.xz/;
+            ($atime, $mtime) = (stat($fn))[8,9];
+            ($xmtime) = (stat($xfn))[9];
+            if ( -e $xfn && $xmtime == $mtime) {
+                print "$fn has not changed, skipping re-compression\n";
+            } else {
+                print "Re-compressing $fn -> $xfn\n";
+                system("gzip -dc $fn | $xz -c9 > '$xfn'") == 0 || die("Cannot re-compress!");
+                system("ls -l $fn");
+                ($atime, $mtime) = (stat($fn))[8,9];
+                utime($atime, $mtime, $xfn);
+                system("ls -l $xfn");
+            }
+        }
+        $out = '';
+        open IN, "build/$pkg";
+        while (<IN>) {
             s/\.tar\.gz/.tar.xz/g;
             $_ = '' if (/^BuiltWith: *$/);
             $out .= (/^Depend/) ? $dep : $_;
-	}
-	close IN;
-	print OUT $out;
+        }
+        close IN;
+        print OUT $out;
     } else {
-	print STDERR "WARNING: $fn ($name) has no recipe\n";
+        print STDERR "WARNING: $fn ($name) has no recipe\n";
     }
 }
 close OUT;
