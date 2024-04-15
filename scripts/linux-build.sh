@@ -27,10 +27,13 @@ while (( "$#" )); do
     shift
 done
 
+OSHOST=$(uname -s | tr '[:upper:]' '[:lower:]')
+
 source /etc/os-release
 
 echo "Running OS:"
-echo '==========='
+echo "==========="
+echo "      OSHOST: $OSHOST"
 echo "        NAME: $NAME"
 echo "          ID: $ID"
 echo "  VERSION_ID: $VERSION_ID"
@@ -101,6 +104,9 @@ fi
 
 ## NOTE: if you want to disable fail-fast, use
 ## ./build.sh -f -p -- -k all
+
+echo "COPY stub configs"
+cp -r $PWD/stubs/pkgconfig-$OSHOST /usr/local/lib/pkgconfig-stubs
 
 echo ''
 echo "=== DONE"
