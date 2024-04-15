@@ -1,6 +1,4 @@
 Package: libuuid
 Version: 2.34
-Depends: autoconf, pkgconfig
-Source.URL: https://github.com/util-linux/util-linux/archive/refs/tags/v${ver}.tar.gz
-Configure.script: autogen.sh
+Source.URL: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${ver}/util-linux-${ver}.tar.gz
 Configure: --disable-all-programs --enable-libuuid
