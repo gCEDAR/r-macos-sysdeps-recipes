@@ -1,5 +1,6 @@
 Package: libuuid
 Version: 2.34
-Build-system: meson-ninja
+Depends: autoconf
 Source.URL: https://github.com/util-linux/util-linux/archive/refs/tags/v${ver}.tar.gz
-Configure: -Dbuild-libuuid=true
+Configure.script: autogen.sh
+Configure: --disable-all-programs --enable-libuuid
