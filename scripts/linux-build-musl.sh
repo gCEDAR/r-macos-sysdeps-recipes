@@ -83,6 +83,7 @@ echo "       FORCE: $FORCE"
 mkdir build_musl && pushd build_musl
 wget https://musl.libc.org/releases/musl-1.2.5.tar.gz
 tar xzf musl-1.2.5.tar.gz && cd musl-1.2.5
+echo "BUILDING PROJECT: musl (1.2.5)"
 ./configure && make install
 popd && rm -rf build_musl
 
