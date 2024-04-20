@@ -1,5 +1,5 @@
---- hdf-4.2.15/mfhdf/ncgen/Makefile.am	2024-04-11 15:16:27
-+++ hdf-4.2.15/mfhdf/ncgen/Makefile.orig.am	2024-04-11 14:24:29
+--- hdf-4.2.16/mfhdf/ncgen/Makefile.am	2024-04-11 15:16:27
++++ hdf-4.2.16/mfhdf/ncgen/Makefile.orig.am	2024-04-11 14:24:29
 @@ -7,7 +7,7 @@
  if HDF_BUILD_SHARED
      SHLIBLOC = $(top_builddir)/mfhdf/libsrc/.libs/libmfhdf.$(SHARED_EXTENSION) $(top_builddir)/hdf/src/.libs/libdf.$(SHARED_EXTENSION)
@@ -10,8 +10,8 @@
  
  ## Setup the different includes and preprocessor #defines we need.
 
---- hdf-4.2.15/mfhdf/ncgen/Makefile.in	2024-04-11 15:16:09
-+++ hdf-4.2.15/mfhdf/ncgen/Makefile.orig.in	2024-04-11 14:27:00
+--- hdf-4.2.16/mfhdf/ncgen/Makefile.in	2024-04-11 15:16:09
++++ hdf-4.2.16/mfhdf/ncgen/Makefile.orig.in	2024-04-11 14:27:00
 @@ -595,7 +595,7 @@
  #############################################################################
  CHECK_CLEANFILES = *.chkexe *.chklog ctest1.cdl ftest1.cdl test0.nc \

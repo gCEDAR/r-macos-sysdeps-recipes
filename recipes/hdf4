@@ -1,5 +1,5 @@
 Package: hdf4
-Version: 4.2.15
+Version: 4.2.16
 Source.URL: https://support.hdfgroup.org/ftp/HDF/releases/HDF${ver}/src/hdf-${ver}.tar.bz2
 Depends: jpeg, szip
 Configure: --enable-build-mode=production --enable-hdf4-xdr --with-szip --disable-netcdf --disable-fortran LIBS=-L/${prefix}/lib CFLAGS='-Wno-implicit-function-declaration'
