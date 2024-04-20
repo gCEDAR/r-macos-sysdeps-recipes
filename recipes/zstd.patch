@@ -2,7 +2,7 @@ diff -ruN zstd-1.5.1/configure zstd-1.5.1-fix/configure
 --- zstd-1.5.1/configure	1969-12-31 19:00:00.000000000 -0500
 +++ zstd-1.5.1-fix/configure	2021-12-28 22:35:37.000000000 -0500
 @@ -0,0 +1,41 @@
-+#!/bin/bash
++#!/usr/bin/env bash
 +
 +BD="`pwd`"
 +SD="`dirname $0`"
