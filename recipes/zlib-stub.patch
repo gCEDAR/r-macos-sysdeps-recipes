@@ -1,0 +1,8 @@
+--- zlib-stub-0.1/configure.orig	2024-04-20 19:41:00
++++ zlib-stub-0.1/configure	2024-04-20 19:41:44
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/usr/bin/env bash
+ 
+ ## force C locale since there are buggy tools out there
+ LANG=C
