@@ -1,5 +1,5 @@
 Package: proj
-Version: 9.1.0
+Version: 9.4.0
 Depends: pkgconfig, tiff, libpng, jpeg, sqlite3
 Source.URL: https://github.com/OSGeo/PROJ/releases/download/${ver}/proj-${ver}.tar.gz
 Build-system: cmake
