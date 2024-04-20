@@ -15,7 +15,7 @@
 --- freetype-2.13.0.orig/builds/unix/post-install	2023-07-11 13:59:50
 +++ freetype-2.13.0/builds/unix/post-install	2023-07-11 13:54:41
 @@ -0,0 +1,19 @@
-+#!/bin/bash
++#!/usr/bin/env bash
 +
 +dest_dir="$1"
 +lib_dir="$2"
