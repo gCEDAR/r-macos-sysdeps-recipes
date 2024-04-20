@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 osname=$(uname -s)
 osarch=$(uname -m)
