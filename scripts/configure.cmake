@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # This is a small wrapper that makes cmake work in autoconf setting
 # (C)2021 Simon Urbanek, License: MIT
 # based on ideas by Brian Ripley

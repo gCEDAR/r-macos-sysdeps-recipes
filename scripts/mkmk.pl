@@ -209,7 +209,7 @@ if ($os eq "darwin") {
 }
 
 $TAR = 'tar' if ($TAR eq '');
-print OUT "SHELL=/usr/bin/env bash\nTAR='$TAR'\nPREFIX='$prefix'\n\n";
+print OUT "SHELL=/usr/bin/env bash -o pipefail\nTAR='$TAR'\nPREFIX='$prefix'\n\n";
 
 if(system("$TAR c --uid 0 /dev/null > /dev/null 2>&1")) {
     print "NOTE: your tar does not support --uid so it won't be set\n";

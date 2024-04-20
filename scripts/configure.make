@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # This is a small wrapper that makes simple Makefile work in autoconf setting
 # (C)2022 Simon Urbanek, License: MIT
 #
