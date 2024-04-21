@@ -126,7 +126,7 @@ if [ ! -e build/Makefile ]; then
     if $RUN; then
       echo 'build/Makefile created.'
       echo ''
-      if ! tty -s; then
+      if ! tty > /dev/null; then
         cat build/Makefile | nl
       fi
     else
