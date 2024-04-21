@@ -1,5 +1,5 @@
 Package: geos
-Version: 3.11.0
+Version: 3.12.1
 Depends: pkgconfig
 Source.URL: http://download.osgeo.org/geos/geos-${ver}.tar.bz2
 Build-system: cmake
