@@ -115,7 +115,7 @@ foreach $fn (@f) {
     foreach (keys %d) { $d{$_} =~ s/\$\{ver_\}/$ver_/ge; }
     ## replace ${ver2} with the 2 segments version
     if ($ver =~ /^(\d+\.\d+)\.\d+$/) {
-        my $ver2 = $1
+        my $ver2 = $1;
         foreach (keys %d) { $d{$_} =~ s/\$\{ver2\}/$ver2/ge; }
     }
     my $src = $d{"source.url"};
