@@ -1,5 +1,5 @@
 Package: xml2
 Version: 2.12.6
-Depends: pkgconfig
+Depends: pkgconfig, xz
 Source.URL: https://download.gnome.org/sources/libxml2/${ver2}/libxml2-${ver}.tar.xz
-Configure: --with-python=off
+Configure: --without-python
