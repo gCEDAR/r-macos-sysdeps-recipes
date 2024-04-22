@@ -2,4 +2,3 @@ Package: boost
 Version: 1.83.0
 Source.URL: https://downloads.sourceforge.net/project/boost/boost/${ver}/boost_${ver_}.tar.bz2
 Configure.driver: sh
-Configure: --with-python=python3
