@@ -113,7 +113,10 @@ foreach $fn (@f) {
     ## replace ${ver_} with the version _
     my $ver_ = $ver =~ s/\./_/gr;
     foreach (keys %d) { $d{$_} =~ s/\$\{ver_\}/$ver_/ge; }
-
+    ## replace ${ver2} with the 2 segments version
+    if ($ver =~ /^(\d+\.\d+)\.\d+$/) {
+        foreach (keys %d) { $d{$_} =~ s/\$\{ver2\}/$1/ge; }
+    }
     my $src = $d{"source.url"};
     my $pkg = $d{"package"};
     my $dep = $d{"depends"};
