@@ -110,6 +110,9 @@ foreach $fn (@f) {
     foreach (keys %d) { $d{$_} =~ s/\$\{prefix\}/$prefix/ge; }
     ## replace ${ver} with the version
     foreach (keys %d) { $d{$_} =~ s/\$\{ver\}/$ver/ge; }
+    ## replace ${ver_} with the version _
+    $ver_ = $ver =~ ~s/\./_/gr;
+    foreach (keys %d) { $d{$_} =~ s/\$\{ver_\}/$ver_/ge; }
 
     my $src = $d{"source.url"};
     my $pkg = $d{"package"};
@@ -144,7 +147,7 @@ foreach my $name (keys %pkgs) {
                 $ok = 0;
             } elsif ($cond{op} ne '') {
                 if ($cond{op} ne ">=") {
-                    print STDERR "WARNING: $name uses condition $cond{name} $cond{op} $cond{ver}, but we only supprot >= operators at this point";
+                    print STDERR "WARNING: $name uses condition $cond{name} $cond{op} $cond{ver}, but we only support >= operators at this point";
                 } else {
 # FIXME: implement version comparison
 #                   if (pkgs[[cond$name]]$nver < cond$version) {
