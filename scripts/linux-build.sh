@@ -69,6 +69,9 @@ echo "    RUN_PKGS: $RUN_PKGS"
 echo "         TTY: $(tty)"
 echo "       FORCE: $FORCE"
 
+## required global dependency
+./build.sh $FORCE -p xml2
+
 ## freetype and harfbuzz have a circular dependency
 ## and need to be bootstrapped in the order FT -> HB -> FT
 ./build.sh $FORCE -p freetype
