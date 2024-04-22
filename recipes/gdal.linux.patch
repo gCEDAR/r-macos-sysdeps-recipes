@@ -36,3 +36,15 @@
  {
      if( error->domain == XML_FROM_XPATH &&
          error->str1 != nullptr &&
+
+--- gdal-3.5.3/port/cpl_xml_validate.orig.cpp	2024-04-23 01:32:58
++++ gdal-3.5.3/port/cpl_xml_validate.cpp	2024-04-23 01:33:18
+@@ -928,7 +928,7 @@
+ 
+     if( strstr(pszStr, "since this namespace was already imported") == nullptr )
+     {
+-        xmlErrorPtr pErrorPtr = xmlGetLastError();
++        const xmlError *pErrorPtr = xmlGetLastError();
+         const char* pszFilename = static_cast<char *>(ctx);
+         char* pszStrDup = CPLStrdup(pszStr);
+         int nLen = static_cast<int>(strlen(pszStrDup));
