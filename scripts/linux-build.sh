@@ -55,20 +55,10 @@ if [ -d $HOME/.local/bin ]; then
 fi
 
 if command -v meson > /dev/null && command -v ninja > /dev/null; then
-    echo "ninja and meson are already on the PATH"
+    echo "ninja and meson found in $PYLIB"
 else
-    PYLIB=$(ls -d ~/.local/bin | tail -n1)
-    if [ -z "$PYLIB" ]; then
-        echo "ERROR: cannot find Python 3 binaries. Use pip3 install --user meson ninja"
-        exit 1
-    fi
-    export PATH=$PATH:$PYLIB
-    if command -v meson > /dev/null && command -v ninja > /dev/null; then
-        echo "ninja and meson found in $PYLIB"
-    else
-        echo "ERROR: cannot find ninja/meson 3 binaries. Use pip3 install --user meson ninja"
-        exit 1
-    fi
+    echo "ERROR: cannot find ninja/meson 3 binaries. Use pip3 install --user meson ninja"
+    exit 1
 fi
 
 echo "Running build:"
