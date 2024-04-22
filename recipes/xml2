@@ -1,3 +1,4 @@
 Package: xml2
 Version: 2.12.6
-Source.URL: https://download.gnome.org/sources/libxml2/2.12/libxml2-${ver}.tar.xz
+Depends: pkgconfig
+Source.URL: https://download.gnome.org/sources/libxml2/${ver2}/libxml2-${ver}.tar.xz
