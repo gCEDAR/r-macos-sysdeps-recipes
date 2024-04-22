@@ -111,7 +111,7 @@ foreach $fn (@f) {
     ## replace ${ver} with the version
     foreach (keys %d) { $d{$_} =~ s/\$\{ver\}/$ver/ge; }
     ## replace ${ver_} with the version _
-    my $ver_ = $ver =~ ~s/\./_/gr;
+    my $ver_ = $ver =~ s/\./_/gr;
     foreach (keys %d) { $d{$_} =~ s/\$\{ver_\}/$ver_/ge; }
 
     my $src = $d{"source.url"};
