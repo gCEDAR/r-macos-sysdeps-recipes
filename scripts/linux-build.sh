@@ -9,13 +9,13 @@ fi
 
 RUN_PKGS=''
 FORCE=''
-SKIP_BOOTSTRAP=1
+SKIP_BOOTSTRAP=''
 
 while (( "$#" )); do
     if [ "x$1" = x--tools ]; then RUN_TOOLS=1;
     elif [ "x$1" = x--all ]; then RUN_ALL=1;
     elif [ "x$1" = x--force ]; then FORCE='-f';
-    elif [ "x$1" = x--continue ]; then SKIP_BOOTSTRAP='';
+    elif [ "x$1" = x--continue ]; then SKIP_BOOTSTRAP=1;
     elif [ "x$1" = x-h -o "x$1" = x--help ]; then
         echo ''
         echo " Usage: $0 [-h|--help] --force --continue [--tools | --all] <pkgs. list>"

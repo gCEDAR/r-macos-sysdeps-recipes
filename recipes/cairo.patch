@@ -5,8 +5,8 @@
  libcairo.la: $(libcairo_la_OBJECTS) $(libcairo_la_DEPENDENCIES) $(EXTRA_libcairo_la_DEPENDENCIES) 
  	$(AM_V_CCLD)$(libcairo_la_LINK) -rpath $(libdir) $(libcairo_la_OBJECTS) $(libcairo_la_LIBADD) $(LIBS)
 +	@echo "Correct linking order for static freetype + harfbuzz."
-+	$(SED) -i 's~/usr/local/lib/libfreetype.la /usr/local/lib/libharfbuzz.la~/usr/local/lib/libharfbuzz.la /usr/local/lib/libfreetype.la~' libcairo.la
-+	@echo "Done: $(cat libcairo.la | $(GREP) dependency_libs=)"
++	@$(SED) -i 's~$(libdir)/libfreetype.la $(libdir)/libharfbuzz.la~$(libdir)/libharfbuzz.la $(libdir)/libfreetype.la~' libcairo.la
++	@echo "Done."
  
  check-link$(EXEEXT): $(check_link_OBJECTS) $(check_link_DEPENDENCIES) $(EXTRA_check_link_DEPENDENCIES) 
  	@rm -f check-link$(EXEEXT)

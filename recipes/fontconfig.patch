@@ -1,12 +1,12 @@
 --- fontconfig-2.14.2-orig/src/Makefile.in	2023-01-27 09:22:14
 +++ fontconfig-2.14.2/src/Makefile.in	2023-07-12 10:20:56
-@@ -632,6 +632,9 @@
+@@ -632,6 +632,10 @@
  
  libfontconfig.la: $(libfontconfig_la_OBJECTS) $(libfontconfig_la_DEPENDENCIES) $(EXTRA_libfontconfig_la_DEPENDENCIES) 
  	$(AM_V_CCLD)$(libfontconfig_la_LINK) -rpath $(libdir) $(libfontconfig_la_OBJECTS) $(libfontconfig_la_LIBADD) $(LIBS)
 +	@echo "Correct linking order for static freetype + harfbuzz."
-+	$(SED) -i 's~/usr/local/lib/libfreetype.la /usr/local/lib/libharfbuzz.la~/usr/local/lib/libharfbuzz.la /usr/local/lib/libfreetype.la~' libfontconfig.la
-+	@echo "Done: $(cat libfontconfig.la | $(GREP) dependency_libs=)"
- 
++	@$(SED) -i "s~$(libdir)/libfreetype.la $(libdir)/libharfbuzz.la~$(libdir)/libharfbuzz.la $(libdir)/libfreetype.la~" libfontconfig.la
++	@echo "Done."
+
  fcarch$(EXEEXT): $(fcarch_OBJECTS) $(fcarch_DEPENDENCIES) $(EXTRA_fcarch_DEPENDENCIES) 
  	@rm -f fcarch$(EXEEXT)

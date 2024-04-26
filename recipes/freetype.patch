@@ -14,7 +14,7 @@
 
 --- freetype-2.13.0.orig/builds/unix/post-install	2023-07-11 13:59:50
 +++ freetype-2.13.0/builds/unix/post-install	2023-07-11 13:54:41
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,29 @@
 +#!/usr/bin/env bash
 +
 +dest_dir="$1"
@@ -26,11 +26,21 @@
 +
 +if [ -f ${dest_dir}${lib_dir}/libfreetype.la ]; then
 +	IN=$(cat ${dest_dir}${lib_dir}/libfreetype.la | grep dependency_libs=)
-+	if [[ "$IN" =~ /usr/local/lib/libharfbuzz\.la.*/usr/local/lib/libfreetype\.la ]]; then
-+		echo "Correct linking order for static freetype + harfbuzz."
-+		sed -i "s~\(/usr/local/lib/libharfbuzz\.la\)\(.*\)\(/usr/local/lib/libfreetype\.la\)~\3\2\1~" ${dest_dir}${lib_dir}/libfreetype.la
++	echo "Correct linking order for static freetype + harfbuzz."
++	if [[ "$IN" =~ ${lib_dir}/libharfbuzz\.la.*${lib_dir}/libfreetype\.la ]]; then
++		sed -i "s~\(${lib_dir}/libharfbuzz\.la\)\(.*\)\(${lib_dir}/libfreetype\.la\)~\3\2\1~" "${dest_dir}${lib_dir}/libfreetype.la"
 +		echo "Done: $(cat ${dest_dir}${lib_dir}/libfreetype.la | grep dependency_libs=)"
 +	else
 +		echo "Nothing to do"
++	fi
++fi
++if [ -f ${dest_dir}${lib_dir}/pkgconfig/freetype2.pc ]; then
++	IN=$(cat ${dest_dir}${lib_dir}/pkgconfig/freetype2.pc | grep 'Libs:')
++	echo "Checking png dependency."
++	if [[ "$IN" =~ lpng ]]; then
++		echo "Nothing to do"
++	else
++		sed -i 's/^Libs.*/& -lpng/' "${dest_dir}${lib_dir}/pkgconfig/freetype2.pc"
++		echo "Done."
 +	fi
 +fi

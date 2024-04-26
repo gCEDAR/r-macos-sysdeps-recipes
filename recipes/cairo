@@ -3,3 +3,4 @@ Version: 1.17.6
 Source.URL: https://download.gnome.org/sources/cairo/1.17/cairo-${ver}.tar.xz
 Depends: freetype (>= 2.1.9), fontconfig, libpng, pixman (>= 0.30.0)
 Configure.darwin: --disable-quartz-font --disable-quartz --disable-quartz-image --x-includes=/opt/X11/include --x-libraries=/opt/X11/lib
+Configure.linux: --x-includes=/usr/include --x-libraries=/usr/lib64

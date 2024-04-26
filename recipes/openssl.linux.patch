@@ -5,7 +5,7 @@
  	    echo 'Description: OpenSSL cryptography library'; \
  	    echo 'Version: '$(VERSION); \
 -	    echo 'Libs: -L$${libdir} -lcrypto'; \
-+	    echo 'Libs: -L$${libdir} -lcrypto -lpthread'; \
++	    echo 'Libs: -L$${libdir} -lcrypto -lpthread -ldl'; \
  	    echo 'Libs.private: $(LIB_EX_LIBS)'; \
  	    echo 'Cflags: -I$${includedir}' ) > libcrypto.pc
  
