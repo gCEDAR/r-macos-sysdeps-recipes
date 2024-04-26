@@ -1,6 +1,6 @@
 --- fontconfig-2.14.2-orig/src/Makefile.in	2023-01-27 09:22:14
 +++ fontconfig-2.14.2/src/Makefile.in	2023-07-12 10:20:56
-@@ -632,6 +632,10 @@
+@@ -632,6 +632,9 @@
  
  libfontconfig.la: $(libfontconfig_la_OBJECTS) $(libfontconfig_la_DEPENDENCIES) $(EXTRA_libfontconfig_la_DEPENDENCIES) 
  	$(AM_V_CCLD)$(libfontconfig_la_LINK) -rpath $(libdir) $(libfontconfig_la_OBJECTS) $(libfontconfig_la_LIBADD) $(LIBS)
