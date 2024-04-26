@@ -136,7 +136,7 @@ if [ ! -e build/Makefile ]; then
 fi
 
 PWD=$(pwd)
-export PKG_CONFIG_PATH=/$PREFIX/lib/pkgconfig:$PWD/stubs/pkgconfig-$oshost:/usr/lib/pkgconfig:/usr/lib/$osarch-$oshost-gnu/pkgconfig
+export PKG_CONFIG_PATH=/$PREFIX/lib/pkgconfig:/$PREFIX/lib64/pkgconfig:$PWD/stubs/pkgconfig-$oshost:/usr/lib/pkgconfig:/usr/lib/$osarch-$oshost-gnu/pkgconfig
 
 set -e
 unset PREFIX && make -C build "${args[@]}"

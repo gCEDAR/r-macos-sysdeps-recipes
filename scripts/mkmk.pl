@@ -217,7 +217,7 @@ if ($os eq "darwin") {
 
 $TAR = 'tar' if ($TAR eq '');
 print OUT "SHELL=/usr/bin/env bash -o pipefail\nTAR='$TAR'\nPREFIX='$prefix'\n\n";
-print OUT "C_INCLUDE_PATH='$prefix/include'\nCPLUS_INCLUDE_PATH='$prefix/include'\nLIBRARY_PATH='$prefix/lib'\n\n";
+print OUT "C_INCLUDE_PATH='/$prefix/include'\nCPLUS_INCLUDE_PATH='/$prefix/include'\nLIBRARY_PATH='/$prefix/lib,/$prefix/lib64'\n\n";
 
 if(system("$TAR c --uid 0 /dev/null > /dev/null 2>&1")) {
     print "NOTE: your tar does not support --uid so it won't be set\n";
